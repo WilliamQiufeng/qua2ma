@@ -21,6 +21,21 @@ parserResult
     .WithNotParsed(HandleParseError);
 return;
 
+DirectoryInfo GetTemporaryDirectory()
+{
+    while (true)
+    {
+        var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+        if (File.Exists(tempDirectory) || Directory.Exists(tempDirectory))
+        {
+            continue;
+        }
+
+        return Directory.CreateDirectory(tempDirectory);
+    }
+}
+
 void PrintHelp()
 {
     var helpText = HelpText.AutoBuild(parserResult, h => h, e => e);
@@ -29,7 +44,7 @@ void PrintHelp()
 
 DirectoryInfo DecompressToTemp(string qpPath)
 {
-    var tempDir = Directory.CreateTempSubdirectory();
+    var tempDir = GetTemporaryDirectory();
     ZipFile.ExtractToDirectory(qpPath, tempDir.FullName);
     return tempDir;
 }
@@ -122,8 +137,9 @@ void RunOptions(Options opts)
     }
 
     var qpOrDirPath = opts.QpOrDirPath;
-    if (qpOrDirPath == null)
+    if (string.IsNullOrWhiteSpace(qpOrDirPath))
     {
+        Console.WriteLine(resources.Path_NoneGiven);
         return;
     }
 
@@ -137,7 +153,7 @@ void RunOptions(Options opts)
     }
     else if (Directory.Exists(qpOrDirPath))
     {
-        qps.AddRange(Directory.EnumerateFiles(qpOrDirPath, "*.qp", SearchOption.AllDirectories));
+        qps.AddRange(Directory.EnumerateFiles(qpOrDirPath, "*.qp", SearchOption.TopDirectoryOnly));
     }
     else
     {

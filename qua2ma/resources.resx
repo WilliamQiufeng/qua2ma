@@ -54,4 +54,7 @@
     <data name="Example_Language" xml:space="preserve">
         <value>Language</value>
     </data>
+    <data name="Path_NoneGiven" xml:space="preserve">
+        <value>No path given.</value>
+    </data>
 </root>

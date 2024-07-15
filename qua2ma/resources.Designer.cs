@@ -141,6 +141,15 @@ namespace qua2ma {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No path given..
+        /// </summary>
+        internal static string Path_NoneGiven {
+            get {
+                return ResourceManager.GetString("Path_NoneGiven", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skipped conversion of &apos;{0}&apos; since output file &apos;{1}&apos; already exists.
         /// </summary>
         internal static string Skip_FileExists {

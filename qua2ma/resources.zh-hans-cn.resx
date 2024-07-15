@@ -47,4 +47,7 @@
     <data name="Example_Language" xml:space="preserve">
         <value>变更语言</value>
     </data>
+    <data name="Path_NoneGiven" xml:space="preserve">
+        <value>没有提供路径。</value>
+    </data>
 </root>

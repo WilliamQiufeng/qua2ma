@@ -69,6 +69,42 @@ namespace qua2ma {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convert a directory of qps.
+        /// </summary>
+        internal static string Example_ConvertQpDir {
+            get {
+                return ResourceManager.GetString("Example_ConvertQpDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert single qp.
+        /// </summary>
+        internal static string Example_ConvertSingleQp {
+            get {
+                return ResourceManager.GetString("Example_ConvertSingleQp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert file to directory.
+        /// </summary>
+        internal static string Example_ConvertToDirectory {
+            get {
+                return ResourceManager.GetString("Example_ConvertToDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string Example_Language {
+            get {
+                return ResourceManager.GetString("Example_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to convert qua &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string Fail_Convert_Qua {

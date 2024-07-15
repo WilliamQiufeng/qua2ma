@@ -108,7 +108,10 @@ void RunOptions(Options opts)
     }
 
     var qpOrDirPath = opts.QpOrDirPath;
-    if (qpOrDirPath == null) return;
+    if (qpOrDirPath == null)
+    {
+        return;
+    }
     var parentDir = qpOrDirPath;
     var qps = new List<string>();
     if (File.Exists(qpOrDirPath))

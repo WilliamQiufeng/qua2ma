@@ -42,4 +42,16 @@
     <data name="FileExists_AskOverwrite" xml:space="preserve">
         <value>'{0}' already exists. Overwrite? (Y/[N])</value>
     </data>
+    <data name="Example_ConvertSingleQp" xml:space="preserve">
+        <value>Convert single qp</value>
+    </data>
+    <data name="Example_ConvertToDirectory" xml:space="preserve">
+        <value>Convert file to directory</value>
+    </data>
+    <data name="Example_ConvertQpDir" xml:space="preserve">
+        <value>Convert a directory of qps</value>
+    </data>
+    <data name="Example_Language" xml:space="preserve">
+        <value>Language</value>
+    </data>
 </root>

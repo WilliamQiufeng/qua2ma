@@ -35,4 +35,16 @@
     <data name="Error" xml:space="preserve">
         <value>错误：{0}</value>
     </data>
+    <data name="Example_ConvertSingleQp" xml:space="preserve">
+        <value>转换单个qp文件</value>
+    </data>
+    <data name="Example_ConvertToDirectory" xml:space="preserve">
+        <value>转换qp文件，并将输出放置在给定文件夹内</value>
+    </data>
+    <data name="Example_ConvertQpDir" xml:space="preserve">
+        <value>转换一个文件夹内的所有qp文件</value>
+    </data>
+    <data name="Example_Language" xml:space="preserve">
+        <value>变更语言</value>
+    </data>
 </root>

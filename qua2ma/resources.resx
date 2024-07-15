@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Fail_Convert_Qua" xml:space="preserve">
+        <value>Failed to convert qua '{0}': {1}</value>
+    </data>
+    <data name="Skip_FileExists" xml:space="preserve">
+        <value>Skipped conversion of '{0}' since output file '{1}' already exists</value>
+    </data>
+    <data name="Success_ConvertQp" xml:space="preserve">
+        <value>Successfully converted '{0}' to '{1}'</value>
+    </data>
+    <data name="Success_SomeFailed" xml:space="preserve">
+        <value>Converted '{0}' to '{1}' with {2} maps failing to convert</value>
+    </data>
+    <data name="Fail_ConvertQp" xml:space="preserve">
+        <value>Failed to convert qp '{0}': {1}</value>
+    </data>
+    <data name="Fail_InvalidPath" xml:space="preserve">
+        <value>Path is not valid.</value>
+    </data>
+    <data name="Error" xml:space="preserve">
+        <value>Error: {0}</value>
+    </data>
+    <data name="FileExists_AskOverwrite" xml:space="preserve">
+        <value>'{0}' already exists. Overwrite? (Y/[N])</value>
+    </data>
+</root>

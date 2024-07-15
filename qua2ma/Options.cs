@@ -5,8 +5,11 @@ namespace qua2ma;
 
 class Options
 {
-    [Value(0, MetaName = "qp", Required = true, HelpText = "Path to .qp file")]
+    [Value(0, MetaName = "qp", HelpText = "Path to .qp file")]
     public string? QpOrDirPath { get; set; }
+
+    [Option('h', "help", Required = false, HelpText = "Display help")]
+    public bool Help { get; set; }
 
     [Option('o', "output", Required = false, HelpText = "Output Directory")]
     public string? OutputDirectory { get; set; }
@@ -20,9 +23,11 @@ class Options
         get
         {
             yield return new(resources.Example_ConvertSingleQp, new Options { QpOrDirPath = "path_to_qp.qp" });
-            yield return new(resources.Example_ConvertToDirectory, new Options { QpOrDirPath = "path_to_qp.qp", OutputDirectory = "out/dir/"});
-            yield return new(resources.Example_ConvertQpDir, new Options { QpOrDirPath = "path/to/qps/"});
-            yield return new(resources.Example_Language, new Options { QpOrDirPath = "path/to/qps/", Language = "zh-hans-cn"});
+            yield return new(resources.Example_ConvertToDirectory,
+                new Options { QpOrDirPath = "path_to_qp.qp", OutputDirectory = "out/dir/" });
+            yield return new(resources.Example_ConvertQpDir, new Options { QpOrDirPath = "path/to/qps/" });
+            yield return new(resources.Example_Language,
+                new Options { QpOrDirPath = "path/to/qps/", Language = "zh-hans-cn" });
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 using CommandLine;
+using CommandLine.Text;
 using Newtonsoft.Json;
 using qua2ma;
 using Quaver.API.Maps;
@@ -14,10 +15,17 @@ var jsonSettings = new JsonSerializerSettings
     Formatting = Formatting.None
 };
 
-Parser.Default.ParseArguments<Options>(args)
+var parserResult = Parser.Default.ParseArguments<Options>(args);
+parserResult
     .WithParsed(RunOptions)
     .WithNotParsed(HandleParseError);
 return;
+
+void PrintHelp()
+{
+    var helpText = HelpText.AutoBuild(parserResult, h => h, e => e);
+    Console.WriteLine(helpText.ToString());
+}
 
 DirectoryInfo DecompressToTemp(string qpPath)
 {
@@ -107,11 +115,18 @@ void RunOptions(Options opts)
         CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo(opts.Language);
     }
 
+    if (opts.Help)
+    {
+        PrintHelp();
+        return;
+    }
+
     var qpOrDirPath = opts.QpOrDirPath;
     if (qpOrDirPath == null)
     {
         return;
     }
+
     var parentDir = qpOrDirPath;
     var qps = new List<string>();
     if (File.Exists(qpOrDirPath))

@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <PackageReference Include="CommandLineParser" Version="2.9.1" />
+        <PackageReference Include="FFMpegCore" Version="5.1.0"/>
       <PackageReference Include="Quaver.API" Version="1.0.0" />
       <PackageReference Include="Rationals" Version="2.3.0" />
     </ItemGroup>

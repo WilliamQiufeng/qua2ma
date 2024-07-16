@@ -50,4 +50,10 @@
     <data name="Path_NoneGiven" xml:space="preserve">
         <value>没有提供路径。</value>
     </data>
+    <data name="Success_ConvertOgg" xml:space="preserve">
+        <value>已将'{0}'转换为ogg格式。</value>
+    </data>
+    <data name="Fail_ConvertOgg" xml:space="preserve">
+        <value>无法将'{0}'转换为ogg：{1}</value>
+    </data>
 </root>

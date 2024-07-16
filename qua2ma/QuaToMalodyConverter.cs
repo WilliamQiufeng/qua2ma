@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using Quaver.API.Maps;
 using Quaver.API.Maps.Structures;
 using Rationals;
@@ -13,18 +14,20 @@ namespace qua2ma;
 
 public class QuaToMalodyConverter
 {
-    private readonly Qua _qua;
-    public MalodyFile MalodyFile { get; }
+    public static IComparer<TimingPointInfo> TimingPointComparer = new TimingPointRelationalComparer();
+    private readonly ConcurrentDictionary<string, string> _pathReplacements;
     private readonly List<float> _prefixBeats = [];
+    private readonly Qua _qua;
 
-    public QuaToMalodyConverter(Qua qua)
+    public QuaToMalodyConverter(Qua qua, ConcurrentDictionary<string, string> pathReplacements)
     {
         _qua = qua;
+        _pathReplacements = pathReplacements;
         MalodyFile = new MalodyFile
         {
             Meta = new MalodyFileMeta
             {
-                Background = _qua.BackgroundFile,
+                Background = GetPath(_qua.BackgroundFile),
                 Creator = _qua.Creator,
                 Id = -1,
                 Keymode = new MalodyMetaKeymode
@@ -43,12 +46,16 @@ public class QuaToMalodyConverter
         };
     }
 
-    public void Generate()
+    public MalodyFile MalodyFile { get; }
+
+    public async Task Generate()
     {
         GeneratePrefixBeats();
-        GenerateTimingPoints();
-        GenerateNotes();
-        GenerateSVs();
+        await Task.WhenAll([
+            Task.Run(GenerateTimingPoints),
+            Task.Run(GenerateNotes),
+            Task.Run(GenerateSVs)
+        ]);
     }
 
     private void GenerateSVs()
@@ -76,10 +83,11 @@ public class QuaToMalodyConverter
                 Column = hitObject.Lane - 1
             });
         }
+
         MalodyFile.Hitobjects.Add(new MalodyHitObject
         {
             Beat = [0, 0, 1],
-            Sound = _qua.AudioFile,
+            Sound = GetPath(_qua.AudioFile),
             Type = 1
         });
     }
@@ -113,7 +121,7 @@ public class QuaToMalodyConverter
         foreach (var timingPoint in _qua.TimingPoints.Skip(1))
         {
             var beatsPassed = (timingPoint.StartTime - previousTimingPoint.StartTime) /
-                                            previousTimingPoint.MillisecondsPerBeat;
+                              previousTimingPoint.MillisecondsPerBeat;
             _prefixBeats.Add(_prefixBeats[^1] + beatsPassed);
             previousTimingPoint = timingPoint;
         }
@@ -134,6 +142,11 @@ public class QuaToMalodyConverter
         return [(int)beat, (int)fraction.Numerator, (int)fraction.Denominator];
     }
 
+    private string GetPath(string path)
+    {
+        return _pathReplacements.GetValueOrDefault(path, path);
+    }
+
     private sealed class TimingPointRelationalComparer : IComparer<TimingPointInfo>
     {
         public int Compare(TimingPointInfo x, TimingPointInfo y)
@@ -144,6 +157,4 @@ public class QuaToMalodyConverter
             return x.StartTime.CompareTo(y.StartTime);
         }
     }
-
-    public static IComparer<TimingPointInfo> TimingPointComparer = new TimingPointRelationalComparer();
 }

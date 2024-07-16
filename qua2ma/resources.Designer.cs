@@ -114,6 +114,15 @@ namespace qua2ma {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to convert &apos;{0}&apos; to ogg: {1}.
+        /// </summary>
+        internal static string Fail_ConvertOgg {
+            get {
+                return ResourceManager.GetString("Fail_ConvertOgg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to convert qp &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string Fail_ConvertQp {
@@ -155,6 +164,15 @@ namespace qua2ma {
         internal static string Skip_FileExists {
             get {
                 return ResourceManager.GetString("Skip_FileExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Converted &apos;{0}&apos; to ogg..
+        /// </summary>
+        internal static string Success_ConvertOgg {
+            get {
+                return ResourceManager.GetString("Success_ConvertOgg", resourceCulture);
             }
         }
         

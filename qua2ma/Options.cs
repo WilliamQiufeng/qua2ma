@@ -17,6 +17,9 @@ class Options
     [Option('l', "language", Required = false, HelpText = "Language/语言 (Supported: zh-hans-cn)")]
     public string? Language { get; set; }
 
+    [Option("ogg", Required = false, Default = false)]
+    public bool ConvertToOgg { get; set; }
+
     [Usage(ApplicationAlias = "qua2ma")]
     public static IEnumerable<Example> Examples
     {

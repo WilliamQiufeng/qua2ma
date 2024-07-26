@@ -17,7 +17,7 @@ class Options
     [Option('l', "language", Required = false, HelpText = "Language/语言 (Supported: zh-hans-cn)")]
     public string? Language { get; set; }
 
-    [Option("ogg", Required = false, Default = false)]
+    [Option("ogg", Required = false, Default = false, HelpText = "Convert audio files to ogg")]
     public bool ConvertToOgg { get; set; }
 
     [Usage(ApplicationAlias = "qua2ma")]
@@ -26,6 +26,8 @@ class Options
         get
         {
             yield return new(resources.Example_ConvertSingleQp, new Options { QpOrDirPath = "path_to_qp.qp" });
+            yield return new(resources.Example_ConvertToOgg,
+                new Options { QpOrDirPath = "path_to_qp.qp", ConvertToOgg = true });
             yield return new(resources.Example_ConvertToDirectory,
                 new Options { QpOrDirPath = "path_to_qp.qp", OutputDirectory = "out/dir/" });
             yield return new(resources.Example_ConvertQpDir, new Options { QpOrDirPath = "path/to/qps/" });

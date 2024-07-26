@@ -63,4 +63,7 @@
     <data name="Fail_ConvertOgg" xml:space="preserve">
         <value>Failed to convert '{0}' to ogg: {1}</value>
     </data>
+    <data name="Example_ConvertToOgg" xml:space="preserve">
+        <value>Convert audio to ogg (requires ffmpeg)</value>
+    </data>
 </root>

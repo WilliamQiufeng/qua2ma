@@ -56,4 +56,7 @@
     <data name="Fail_ConvertOgg" xml:space="preserve">
         <value>无法将'{0}'转换为ogg：{1}</value>
     </data>
+    <data name="Example_ConvertToOgg" xml:space="preserve">
+        <value>将音频文件转换成ogg（需要ffmpeg）</value>
+    </data>
 </root>

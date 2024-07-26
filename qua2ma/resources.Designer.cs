@@ -96,6 +96,15 @@ namespace qua2ma {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convert audio to ogg (requires ffmpeg).
+        /// </summary>
+        internal static string Example_ConvertToOgg {
+            get {
+                return ResourceManager.GetString("Example_ConvertToOgg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string Example_Language {

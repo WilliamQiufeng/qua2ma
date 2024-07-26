@@ -31,5 +31,5 @@ jobs:
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v4
       with:
-        name: qua2ma.exe
-        path: publish/qua2ma.exe
+        name: qua2ma
+        path: publish/qua2ma

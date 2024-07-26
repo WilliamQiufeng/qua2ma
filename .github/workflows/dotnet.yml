@@ -15,21 +15,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Publish
-      run: dotnet publish -c Release -o publish
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: qua2ma
-        path: publish/qua2ma
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+      - name: Publish Linux
+        run: dotnet publish -c Release -o publish-linux
+      - name: Upload linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qua2ma
+          path: publish-linux/qua2ma
+
+      - name: Publish Windows
+        run: dotnet publish -c Release -o publish-win --os win
+      - name: Upload windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qua2ma.exe
+          path: publish-win/qua2ma.exe
+
+      - name: Publish OSX
+        run: dotnet publish -c Release -o publish-osx --os osx
+      - name: Upload OSX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qua2ma-macos
+          path: publish-osx/qua2ma

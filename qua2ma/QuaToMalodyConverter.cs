@@ -113,7 +113,7 @@ public class QuaToMalodyConverter
         if (_qua.TimingPoints[0].StartTime > 0)
             _qua.TimingPoints.Insert(0, new TimingPointInfo
             {
-                Bpm = 60,
+                Bpm = _qua.TimingPoints[0].Bpm,
                 Hidden = true,
                 StartTime = 0
             });

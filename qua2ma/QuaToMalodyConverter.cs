@@ -15,14 +15,16 @@ namespace qua2ma;
 public class QuaToMalodyConverter
 {
     public static IComparer<TimingPointInfo> TimingPointComparer = new TimingPointRelationalComparer();
+    private readonly int _offset;
     private readonly ConcurrentDictionary<string, string> _pathReplacements;
     private readonly List<float> _prefixBeats = [];
     private readonly Qua _qua;
 
-    public QuaToMalodyConverter(Qua qua, ConcurrentDictionary<string, string> pathReplacements)
+    public QuaToMalodyConverter(Qua qua, ConcurrentDictionary<string, string> pathReplacements, int offset)
     {
         _qua = qua;
         _pathReplacements = pathReplacements;
+        _offset = offset;
         MalodyFile = new MalodyFile
         {
             Meta = new MalodyFileMeta
@@ -35,14 +37,14 @@ public class QuaToMalodyConverter
                     Keymode = _qua.GetKeyCount()
                 },
                 Mode = 0,
-                PreviewTime = _qua.SongPreviewTime,
+                PreviewTime = _qua.SongPreviewTime + _offset,
                 Song = new MalodyFileSong
                 {
                     Artist = _qua.Artist,
                     Title = _qua.Title
                 },
-                Version = qua.DifficultyName
-            }
+                Version = qua.DifficultyName,
+            },
         };
     }
 
@@ -120,7 +122,7 @@ public class QuaToMalodyConverter
         var previousTimingPoint = _qua.TimingPoints[0];
         foreach (var timingPoint in _qua.TimingPoints.Skip(1))
         {
-            var beatsPassed = (timingPoint.StartTime - previousTimingPoint.StartTime) /
+            var beatsPassed = (_offset + timingPoint.StartTime - previousTimingPoint.StartTime) /
                               previousTimingPoint.MillisecondsPerBeat;
             _prefixBeats.Add(_prefixBeats[^1] + beatsPassed);
             previousTimingPoint = timingPoint;
@@ -129,6 +131,7 @@ public class QuaToMalodyConverter
 
     private List<int> TimeToBeat(float time)
     {
+        time += _offset;
         var tpIndex = _qua.TimingPoints.BinarySearch(new TimingPointInfo { StartTime = time }, TimingPointComparer);
         if (tpIndex < 0)
             tpIndex = ~tpIndex - 1;

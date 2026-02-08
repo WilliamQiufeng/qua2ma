@@ -14,6 +14,9 @@ class Options
     [Option('o', "output", Required = false, HelpText = "Output Directory")]
     public string? OutputDirectory { get; set; }
 
+    [Option('f', "offset", Required = false, HelpText = "Audio Offset", Default = 0)]
+    public int Offset { get; set; }
+
     [Option('l', "language", Required = false, HelpText = "Language/语言 (Supported: zh-hans-cn)")]
     public string? Language { get; set; }
 

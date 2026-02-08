@@ -56,12 +56,13 @@ void Compress(DirectoryInfo directoryInfo, string outFileName)
     ZipFile.CreateFromDirectory(directoryInfo.FullName, outFileName);
 }
 
-async Task<bool> ConvertQua(string quaPath, ConcurrentDictionary<string, string> pathReplacements, bool delete = false)
+async Task<bool> ConvertQua(string quaPath, ConcurrentDictionary<string, string> pathReplacements, int offset,
+    bool delete = false)
 {
     try
     {
         var qua = Qua.Parse(quaPath);
-        var converter = new QuaToMalodyConverter(qua, pathReplacements);
+        var converter = new QuaToMalodyConverter(qua, pathReplacements, offset);
         await converter.Generate();
 
         var outputPath = Path.ChangeExtension(quaPath, ".mc");
@@ -122,7 +123,7 @@ IEnumerable<Task> ConvertIncompatibleFiles(DirectoryInfo dir, bool convertToOgg,
     }
 }
 
-async Task ConvertQp(string qpPath, string outputDirectory, bool convertToOgg)
+async Task ConvertQp(string qpPath, string outputDirectory, bool convertToOgg, int offset)
 {
     var qpFileName = Path.GetFileName(qpPath);
     var mczFileName = Path.GetFileName(Path.ChangeExtension(qpPath, ".mcz"));
@@ -149,7 +150,7 @@ async Task ConvertQp(string qpPath, string outputDirectory, bool convertToOgg)
         await Task.WhenAll(ConvertIncompatibleFiles(dir, convertToOgg, pathReplacements).ToArray());
         await Task.WhenAll(dir.EnumerateFiles("*.qua").Select(async quaFile =>
         {
-            var result = await ConvertQua(quaFile.FullName, pathReplacements, true);
+            var result = await ConvertQua(quaFile.FullName, pathReplacements, offset, true);
             if (!result) failCount++;
         }).ToArray());
 
@@ -205,7 +206,7 @@ void RunOptions(Options opts)
     }
 
     var outDir = opts.OutputDirectory ?? parentDir;
-    Task.WaitAll(qps.Select(qpPath => ConvertQp(qpPath, outDir, opts.ConvertToOgg)).ToArray());
+    Task.WaitAll(qps.Select(qpPath => ConvertQp(qpPath, outDir, opts.ConvertToOgg, opts.Offset)).ToArray());
 }
 
 void HandleParseError(IEnumerable<Error> errs)
